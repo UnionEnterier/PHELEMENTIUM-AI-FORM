@@ -542,6 +542,17 @@
             '5'
         ];
 
+        // Read URL parameters from Slack slash command
+        const urlParams = new URLSearchParams(window.location.search);
+        const slackContext = {
+            user_id: urlParams.get('user_id') || '',
+            user_name: urlParams.get('user_name') || '',
+            channel_id: urlParams.get('channel_id') || '',
+            channel_name: urlParams.get('channel_name') || '',
+            response_url: urlParams.get('response_url') || '',
+            team_id: urlParams.get('team_id') || ''
+        };
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function () {
             addVideoBlock(); // Add first block
@@ -774,6 +785,9 @@
             for (let [key, value] of formData.entries()) {
                 data[key] = value;
             }
+
+            // Add Slack context from URL parameters
+            Object.assign(data, slackContext);
 
             // Add loading state
             form.classList.add('loading');
