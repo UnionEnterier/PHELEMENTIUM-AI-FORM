@@ -530,7 +530,6 @@
         const durationOptions = [
             '4',
             '8',
-            '10',
             '12'
         ];
 
@@ -745,6 +744,18 @@
                     <option value="8">8s</option>
                 `;
                 durationSelect.value = '8';
+            } else if (model === 'OpenAI Sora') {
+                // Only show 4s, 8s, and 12s for Sora
+                durationSelect.innerHTML = `
+                    <option value="">Select duration...</option>
+                    <option value="4">4s</option>
+                    <option value="8">8s</option>
+                    <option value="12">12s</option>
+                `;
+                // Restore previous value if it was valid for Sora
+                if (currentValue && ['4', '8', '12'].includes(currentValue)) {
+                    durationSelect.value = currentValue;
+                }
             } else {
                 // Show all duration options for other models
                 durationSelect.innerHTML = `
